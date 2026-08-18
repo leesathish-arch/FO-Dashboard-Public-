@@ -164,7 +164,7 @@ def load_universe_csv(raw: bytes) -> pd.DataFrame:
     out = pd.DataFrame()
     out["SYMBOL"] = df[symcol].astype(str).str.strip().str.upper()
     out["COMPANY"] = df["COMPANY"].astype(str) if "COMPANY" in df.columns else ""
-    out["SECTOR"] = df["SECTOR"].astype(str) if "SECTOR" in df.columns else ""
+      out["SECTOR"] = df["SECTOR"].fillna("").astype(str).replace({"nan": "", "None": ""}) if "SECTOR" in df.columns else ""
 
     def tagged(tag, altcol):
         if "GROUPS" in df.columns:
